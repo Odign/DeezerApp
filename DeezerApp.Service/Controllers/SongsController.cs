@@ -1,5 +1,6 @@
 ﻿using DeezerApp.Service.Domain;
 using DeezerApp.Service.Service;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -31,7 +32,8 @@ namespace DeezerApp.Service.Controllers
             try
             {
                 ServiceResponse serviceResponse = deezerService.GetSongs(artistName);
-                return Ok(serviceResponse.GetQuantityOfSongs(MAX_SONG_QUANTITY));
+                List<Song> songs = serviceResponse.GetQuantityOfSongs(MAX_SONG_QUANTITY);
+                return Ok(JsonConvert.SerializeObject(songs));
             }
             catch (Exception ex)
             {
